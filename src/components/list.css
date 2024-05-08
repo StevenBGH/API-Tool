@@ -1,0 +1,32 @@
+.titles {
+    display: flex;
+    text-align: center;
+    color: black;
+    background-color: rgb(236, 252, 251);
+    flex-direction: column;
+    width: 30vw
+}
+.lists {
+    display: flex;
+    text-align: center;
+    color: black;
+    background-color: rgb(78, 239, 234);
+    flex-direction: column;
+    border: 2px;
+    border-style: solid;
+    border-radius: 5px;    
+    border-color: black;
+    padding: 5px;
+    margin: 5px;
+    box-shadow: 25px;
+    width: 20vw;
+    font-size: .6em;
+    
+}
+.botName {
+    font-size: 1.7em;
+    
+}
+.botId {
+    font-size: 1em;
+}
