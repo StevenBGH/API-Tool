@@ -1,29 +1,23 @@
 
 import './App.css';
 import FetchGetRequest from './components/getKB';
-import FetchConvRequest from './components/getConvs';
 
-import React, { useEffect, useState } from "react";
+
+import React, {useState } from "react";
 
 
 function App() {
   const [isBotsLoading, setIsBotsLoading] = useState(false);
-  const [isConvsLoading, setIsConvsLoading] = useState(false)
-  const [baseList, setBaseList] = useState([]);
-  const [kbase, setKbase] = useState([]);
+
   
 
-  function handlerGetKB () {
+  function handlerGetKB () {   
     
-    console.log("I am here")
     
     setIsBotsLoading(true)
   }
 
-  function handlerGetConv() {
-   console.log("handler for convs")
-   setIsConvsLoading(true)
-  }
+
 
   return (
     <div>

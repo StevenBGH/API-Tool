@@ -1,14 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-function CloneKnowladgeBase({ kB }) { // Destructure kB from props
+function CloneKnowladgeBase({ kBId, kbName }) { // Destructure kB from props
     const [clonedKB, setClonedKB] = useState([]);
     const [waitForClone, setWaitForClone] = useState(false);
-
-    useEffect(() => {
-        if (kB && kB.length > 0) { // Check if kB has contents
-            setWaitForClone(true);
+   
+    
+    console.log(kBId, kbName)
+    function handlerClone(id) {
+        if (kBId) { // Check if kB has contents
+            console.log(kBId)
             const apiKey = process.env.REACT_APP_API_KEY;
-            fetch(`https://api.dante-ai.com/knowledge-bases/v2/duplicate_kb/${kB}`, {
+            fetch(`https://api.dante-ai.com/knowledge-bases/v2/duplicate_kb/${kBId}`, {
                 method: 'POST',
                 headers: {
                     'x-api-key': apiKey,
@@ -19,19 +21,22 @@ function CloneKnowladgeBase({ kB }) { // Destructure kB from props
                 setClonedKB(json.results);
             })
             .then  (console.log(clonedKB))
+            .then (setWaitForClone(true))
             .catch(error => {
                 console.error("Error fetching knowledge bases:", error);
             });
         } else {
             setWaitForClone(false);
         }
-    }, [kB]);
+    };
    
     return (
         <div>
-            {waitForClone ? <>Cloned - New KB created: {clonedKB.knowledge_base.knowledge_base_name}
+            <button onClick={() => handlerClone()}>Press to Clone Bot</button>
+
+            {waitForClone ? <div>Cloned - New KB created from: {kbName}
             <br></br>
-            <h3>Refresh page -F5- to reload Knowledge Base List </h3> </> : <>--</>}
+            <h3>Press Refresh to reload KB list</h3> </div> : <>--</>}
            
         </div>
     );

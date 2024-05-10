@@ -9,6 +9,7 @@ function FetchGetRequest() {
   const [baseList, setBaseList] = useState([]);
   const [selectedKBId, setSelectedKBId] = useState(null); // State to store selected knowledge base ID
   const [selectedKBName, setSelectedKBName] = useState(null); // State to store selected knowledge base ID
+  
   const apiKey = process.env.REACT_APP_API_KEY
   console.log(process.env.REACT_APP_API_KEY)
 
@@ -16,6 +17,7 @@ function FetchGetRequest() {
     const fetchData = () => {
     setIsLoading(true);
     fetch('https://api.dante-ai.com/knowledge-bases/', {
+      
       method: 'GET',
       headers: {
         'x-api-key': `${apiKey}`,
@@ -37,7 +39,7 @@ function FetchGetRequest() {
 
     // Clean up the interval when component unmounts
     
-  }, []);
+  }, [apiKey]);
 
   console.log(baseList);
 
@@ -46,13 +48,33 @@ function FetchGetRequest() {
     console.log(baseName)
     setSelectedKBName(baseName);
   }
+  function handlerRefresh() {
+    setIsLoading(true);
+    fetch('https://api.dante-ai.com/knowledge-bases/', {
+      
+      method: 'GET',
+      headers: {
+        'x-api-key': `${apiKey}`,
+      }
+    })
+    .then(response => response.json())
+    .then(json => {
+      setBaseList(json.results);
+      setIsLoading(false);
+    })
+    .catch(error => {
+      console.error("Error fetching knowledge bases:", error);
+      setIsLoading(false);
+    });  
+  }
 
   return (
 <div className="App">
   <div className="App-main">
     <div className="App-Sidebar">
       {/* Sidebar content */}
-      <h1>Knowledge Base List</h1>
+      <h3>Knowledge Base List</h3>
+      <button onClick={()=> handlerRefresh()}>Refesh</button>
       {isLoading ? (
         <div>Loading...</div>
       ) : (
