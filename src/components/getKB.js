@@ -11,7 +11,7 @@ function FetchGetRequest() {
   const [selectedKBName, setSelectedKBName] = useState(null); // State to store selected knowledge base ID
   
   const apiKey = process.env.REACT_APP_API_KEY
-  console.log(process.env.REACT_APP_API_KEY)
+  
 
   useEffect(() => {
     const fetchData = () => {
@@ -41,11 +41,11 @@ function FetchGetRequest() {
     
   }, [apiKey]);
 
-  console.log(baseList);
+  
 
   function handlerChooseKB(idNum,baseName) {
     setSelectedKBId(idNum); // Update selected knowledge base ID
-    console.log(baseName)
+    
     setSelectedKBName(baseName);
   }
   function handlerRefresh() {
